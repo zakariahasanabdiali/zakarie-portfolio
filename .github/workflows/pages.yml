@@ -5,13 +5,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Required for Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Only one deploy at a time
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -33,7 +31,6 @@ jobs:
         run: npm ci
 
       - name: Build
-        # If you use a custom domain and have public/CNAME in the repo, it will be kept automatically
         run: npm run build
 
       - name: Upload artifact
