@@ -19,6 +19,7 @@ const Navbar = () => (
         <NavLink to="/" label="Home" />
         <NavLink to="/about" label="About" />
         <NavLink to="/projects" label="Projects" />
+        <NavLink to="/certificates" label="Certificates" />
         <NavLink to="/resume" label="Resume" />
         <NavLink to="/contact" label="Contact" />
 
