@@ -10,27 +10,32 @@ const ProjectCard = ({ icon, title, children, delay }) => {
 
   return (
     <div
-      className={`bg-slate-900 p-6 rounded-xl shadow-lg border border-slate-800 hover:border-green-400 transition transform hover:-translate-y-1 duration-300 ${
+      className={`bg-white/85 p-6 rounded-xl shadow-lg border border-slate-200 hover:border-emerald-400 transition transform hover:-translate-y-1 duration-300 dark:bg-slate-900 dark:border-slate-800 ${
         mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
-      <div className="text-green-400 text-4xl mb-4">{icon}</div>
+      <div className="text-emerald-500 text-4xl mb-4">{icon}</div>
       <h4 className="text-lg font-bold mb-2">{title}</h4>
-      <div className="text-slate-300 text-sm leading-relaxed">{children}</div>
+      <div className="text-slate-600 text-sm leading-relaxed dark:text-slate-300">{children}</div>
     </div>
   );
 };
 
 const Projects = () => {
   return (
-    <section className="px-6 py-16 bg-slate-950 text-white">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" className="relative overflow-hidden px-5 sm:px-6 py-16 scroll-mt-24 bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
+      {/* Animated background blobs */}
+      <div className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-emerald-300/30 blur-3xl animate-blob dark:bg-emerald-500/15" />
+      <div className="pointer-events-none absolute -right-20 top-1/3 h-64 w-64 rounded-full bg-cyan-300/30 blur-3xl animate-blob animation-delay-2000 dark:bg-cyan-500/15" />
+      <div className="pointer-events-none absolute left-10 bottom-0 h-64 w-64 rounded-full bg-green-200/25 blur-3xl animate-blob animation-delay-4000 dark:bg-green-500/10" />
+
+      <div className="relative max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold bg-gradient-to-r from-white to-green-300 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-extrabold bg-gradient-to-r from-slate-900 to-emerald-500 bg-clip-text text-transparent dark:from-white dark:to-green-300">
             📂 Featured Projects
           </h2>
-          <p className="mt-3 text-slate-400 max-w-2xl mx-auto">
+          <p className="mt-3 text-slate-600 max-w-2xl mx-auto dark:text-slate-300">
             A showcase of my AI-powered Somali language projects, blending advanced machine learning with practical applications.
           </p>
         </div>
