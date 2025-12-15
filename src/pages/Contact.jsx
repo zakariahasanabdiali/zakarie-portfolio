@@ -42,14 +42,14 @@ const Contact = () => {
   };
 
   return (
-    <section className="px-6 py-16 bg-slate-950 text-white">
+    <section className="px-6 py-16 bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
       <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-2">
         {/* Left: Info / Social */}
         <div>
-          <h2 className="text-4xl font-extrabold bg-gradient-to-r from-white to-green-300 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-extrabold bg-gradient-to-r from-slate-900 via-emerald-600 to-cyan-500 bg-clip-text text-transparent dark:from-white dark:to-green-300">
             📫 Get in Touch
           </h2>
-          <p className="mt-3 text-slate-300">
+          <p className="mt-3 text-slate-600 dark:text-slate-300">
             I’m open to work, internships, collaborations, and freelance projects in AI, speech tech, and web development.
           </p>
 
@@ -101,14 +101,14 @@ const Contact = () => {
         </div>
 
         {/* Right: Contact Form */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-lg">
-          <h3 className="text-xl font-semibold mb-4">Send a Message</h3>
+        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-lg dark:bg-slate-900 dark:border-slate-800">
+          <h3 className="text-xl font-semibold mb-4 text-slate-900 dark:text-white">Send a Message</h3>
           {/* For Formspree: replace onSubmit with action + method="POST" and remove handler
               <form action="https://formspree.io/f/your-id" method="POST"> */}
           <form onSubmit={onSubmit} className="space-y-4">
             {Object.entries(formFields).map(([name, config]) => (
               <div key={name}>
-                <label className="block text-sm mb-1" htmlFor={name}>
+              <label className="block text-sm mb-1 text-slate-600 dark:text-slate-300" htmlFor={name}>
                   {config.label}
                 </label>
                 {config.type === 'textarea' ? (
@@ -117,7 +117,7 @@ const Contact = () => {
                     name={name}
                     rows="5"
                     required={config.required}
-                    className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+                    className="w-full rounded-lg bg-slate-100 border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
                     placeholder={config.placeholder}
                   />
                 ) : (
@@ -126,7 +126,7 @@ const Contact = () => {
                     name={name}
                     type={config.type}
                     required={config.required}
-                    className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+                    className="w-full rounded-lg bg-slate-100 border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-400 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
                     placeholder={config.placeholder}
                   />
                 )}
@@ -134,7 +134,7 @@ const Contact = () => {
             ))}
 
             {error ? (
-              <p className="text-sm text-red-400" role="alert">
+              <p className="text-sm text-red-500 dark:text-red-300" role="alert">
                 {error}
               </p>
             ) : null}
@@ -142,11 +142,11 @@ const Contact = () => {
             <button
               type="submit"
               disabled={sending}
-              className="w-full rounded-lg bg-green-600 hover:bg-green-500 disabled:opacity-60 px-4 py-2 font-medium transition"
+              className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 px-4 py-2 font-medium text-white transition shadow-lg shadow-emerald-200/40 dark:shadow-emerald-900/30"
             >
               {sending ? 'Sending…' : 'Send Message'}
             </button>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Tip: Swap the mailto fallback with a Formspree/EmailJS endpoint for frictionless submissions.
             </p>
           </form>
@@ -158,10 +158,10 @@ const Contact = () => {
 
 const InfoRow = ({ icon, label, children }) => (
   <div className="flex items-start gap-3">
-    <div className="text-green-400 mt-1">{icon}</div>
+    <div className="text-emerald-500 mt-1">{icon}</div>
     <div>
-      <div className="text-sm text-slate-400">{label}</div>
-      <div className="text-slate-200">{children}</div>
+      <div className="text-sm text-slate-500 dark:text-slate-400">{label}</div>
+      <div className="text-slate-700 dark:text-slate-200">{children}</div>
     </div>
   </div>
 );
