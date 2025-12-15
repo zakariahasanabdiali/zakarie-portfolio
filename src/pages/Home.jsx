@@ -23,8 +23,9 @@ const Home = () => {
           }`}
         >
           <h1 className="text-4xl font-extrabold leading-tight text-white md:text-6xl">
-            <span className="bg-gradient-to-r from-white via-white to-green-300 bg-clip-text text-transparent">
-              👋 Hello, I’m Zakarie
+            <span className="inline-flex items-center gap-3 bg-gradient-to-r from-white via-white to-green-300 bg-clip-text text-transparent">
+              <span className="animate-hero-wave text-4xl md:text-5xl">☁️</span>
+              Hello, I’m Zakarie
             </span>
           </h1>
 
