@@ -12,10 +12,22 @@ const NavLink = ({ to, label }) => {
 };
 
 const Navbar = () => (
-  <nav className="bg-gray-800 text-white px-6 py-4 shadow-md sticky top-0 z-50">
+  <nav className="bg-slate-950/80 backdrop-blur border-b border-slate-900 text-white px-6 py-4 shadow-lg sticky top-0 z-50">
     <div className="max-w-6xl mx-auto flex justify-between items-center">
-      <h1 className="text-xl font-bold">Zakarie</h1>
-      <div className="flex gap-6">
+      <Link to="/" className="flex items-center gap-2 group">
+        <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-green-400 via-emerald-500 to-cyan-400 text-slate-950 font-black flex items-center justify-center shadow-lg shadow-green-500/30">
+          Z
+        </div>
+        <div className="flex flex-col leading-tight">
+          <span className="text-lg font-bold bg-gradient-to-r from-white via-green-200 to-cyan-200 bg-clip-text text-transparent tracking-wide">
+            Zakarie
+          </span>
+          <span className="text-xs uppercase text-slate-400 tracking-[0.3em] group-hover:text-green-300 transition">
+            Portfolio
+          </span>
+        </div>
+      </Link>
+      <div className="flex gap-6 text-sm font-medium">
         <NavLink to="/" label="Home" />
         <NavLink to="/about" label="About" />
         <NavLink to="/projects" label="Projects" />

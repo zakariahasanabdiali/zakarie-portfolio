@@ -22,11 +22,14 @@ const Home = () => {
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <h1 className="text-4xl font-extrabold leading-tight text-white md:text-6xl">
-            <span className="inline-flex items-center gap-3 bg-gradient-to-r from-white via-white to-green-300 bg-clip-text text-transparent">
-              <span className="animate-hero-wave text-4xl md:text-5xl">☁️</span>
-              Hello, I’m Zakarie
+          <h1 className="text-4xl font-extrabold leading-tight text-white md:text-6xl space-y-2">
+            <span className="inline-flex items-center gap-3 animate-text-glow">
+              <span className="animate-hero-wave text-4xl md:text-5xl text-white">☁️</span>
+              <span className="bg-gradient-to-r from-white via-white to-green-300 bg-clip-text text-transparent">
+                Hello, I’m Zakarie
+              </span>
             </span>
+            <span className="block h-1 w-24 bg-gradient-to-r from-green-400/80 via-cyan-300/70 to-transparent rounded-full animate-underline-glow" />
           </h1>
 
           <p className="mt-4 max-w-xl text-slate-300 md:text-lg">
