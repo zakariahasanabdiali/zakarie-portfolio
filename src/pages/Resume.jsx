@@ -6,14 +6,14 @@ import {
 import { SiHuggingface } from 'react-icons/si';
 
 const Resume = () => (
-  <section className="px-6 py-16 bg-slate-950 text-white">
+  <section className="px-6 py-16 bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
     <div className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-extrabold bg-gradient-to-r from-white to-green-300 bg-clip-text text-transparent">
+        <h2 className="text-4xl font-extrabold bg-gradient-to-r from-slate-900 via-emerald-600 to-cyan-500 bg-clip-text text-transparent dark:from-white dark:to-green-300">
           📄 My Resume
         </h2>
-        <p className="text-slate-400 mt-2">
+        <p className="text-slate-600 mt-2 dark:text-slate-300">
           Download my full resume or view key highlights below.
         </p>
       </div>
@@ -23,7 +23,7 @@ const Resume = () => (
         <a
           href="/resume.pdf"
           download
-          className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 px-6 py-3 rounded-lg text-white font-medium shadow-lg transition"
+          className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 px-6 py-3 rounded-lg text-white font-medium shadow-lg shadow-emerald-200/40 transition dark:shadow-emerald-900/30"
         >
           <FaDownload /> Download Full Resume (PDF)
         </a>
@@ -91,11 +91,11 @@ const Resume = () => (
 );
 
 const InfoCard = ({ icon, title, children }) => (
-  <div className="bg-slate-900 border border-slate-800 rounded-lg p-5 shadow hover:border-green-400 transition">
-    <div className="flex items-center gap-3 mb-2 text-green-400 text-xl">
-      {icon}<span className="text-white font-semibold">{title}</span>
+  <div className="bg-white border border-slate-200 rounded-lg p-5 shadow hover:border-emerald-400 transition dark:bg-slate-900 dark:border-slate-800">
+    <div className="flex items-center gap-3 mb-2 text-emerald-500 text-xl">
+      {icon}<span className="text-slate-900 font-semibold dark:text-white">{title}</span>
     </div>
-    <p className="text-slate-300 text-sm">{children}</p>
+    <p className="text-slate-600 text-sm dark:text-slate-300">{children}</p>
   </div>
 );
 
