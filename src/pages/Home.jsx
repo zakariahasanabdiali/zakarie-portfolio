@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import profile from '../assets/profile.jpg'; // Ensure your image is here
 
 const Home = () => {
@@ -10,7 +9,10 @@ const Home = () => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-slate-100 via-white to-slate-200 text-slate-900 dark:from-slate-900 dark:to-slate-950 dark:text-white transition-colors duration-300">
+    <section
+      id="home"
+      className="relative overflow-hidden px-5 sm:px-6 bg-gradient-to-b from-slate-100 via-white to-slate-200 text-slate-900 dark:from-slate-900 dark:to-slate-950 dark:text-white transition-colors duration-300"
+    >
       {/* Glow background */}
       <div className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-green-500/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
@@ -38,18 +40,28 @@ const Home = () => {
           </p>
 
           <div className="mt-6 flex items-center gap-3">
-            <Link
-              to="/projects"
+            <a
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('projects');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="rounded-xl bg-emerald-600 px-5 py-2.5 font-medium text-white transition hover:bg-emerald-500 shadow-lg shadow-emerald-200/40 dark:shadow-emerald-900/30"
             >
               View Projects
-            </Link>
-            <Link
-              to="/contact"
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('contact');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="rounded-xl border border-slate-300 px-5 py-2.5 font-medium text-slate-700 transition hover:border-slate-500 hover:text-slate-900 dark:border-slate-600 dark:text-slate-200 dark:hover:border-slate-400 dark:hover:text-white"
             >
               Contact Me
-            </Link>
+            </a>
           </div>
         </div>
 

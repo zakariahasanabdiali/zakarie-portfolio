@@ -9,8 +9,13 @@ const About = () => {
   }, []);
 
   return (
-    <section className="px-6 py-16 bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="relative overflow-hidden px-5 sm:px-6 py-16 scroll-mt-24 bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
+      {/* Animated background blobs */}
+      <div className="pointer-events-none absolute -left-24 -top-20 h-56 w-56 rounded-full bg-emerald-300/25 blur-3xl animate-blob dark:bg-emerald-500/15" />
+      <div className="pointer-events-none absolute right-10 top-1/3 h-56 w-56 rounded-full bg-cyan-300/25 blur-3xl animate-blob animation-delay-2000 dark:bg-cyan-500/15" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-green-200/20 blur-3xl animate-blob animation-delay-4000 dark:bg-green-500/10" />
+
+      <div className="relative max-w-6xl mx-auto">
         {/* Heading */}
         <div
           className={`text-center transition-all duration-700 ${

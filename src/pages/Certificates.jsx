@@ -33,8 +33,13 @@ const Certificates = () => {
   }, []);
 
   return (
-    <section className="px-6 py-16 bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
-      <div className="max-w-6xl mx-auto">
+    <section id="certificates" className="relative overflow-hidden px-5 sm:px-6 py-16 scroll-mt-24 bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
+      {/* Animated background blobs */}
+      <div className="pointer-events-none absolute -left-16 -top-10 h-56 w-56 rounded-full bg-emerald-300/20 blur-3xl animate-blob dark:bg-emerald-500/12" />
+      <div className="pointer-events-none absolute right-0 top-1/3 h-64 w-64 rounded-full bg-cyan-300/20 blur-3xl animate-blob animation-delay-2000 dark:bg-cyan-500/12" />
+      <div className="pointer-events-none absolute left-6 bottom-0 h-64 w-64 rounded-full bg-green-200/18 blur-3xl animate-blob animation-delay-4000 dark:bg-green-500/10" />
+
+      <div className="relative max-w-6xl mx-auto">
         <header className="text-center mb-10">
           <h2 className="text-4xl font-extrabold bg-gradient-to-r from-slate-900 via-emerald-600 to-cyan-500 bg-clip-text text-transparent dark:from-white dark:to-green-300">
             🎓 Certificates
