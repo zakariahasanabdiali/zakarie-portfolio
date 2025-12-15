@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import profile from '../assets/profile.jpg'; // Ensure your image is here
 
 const Home = () => {
@@ -23,7 +24,7 @@ const Home = () => {
         >
           <h1 className="text-4xl font-extrabold leading-tight text-white md:text-6xl">
             <span className="bg-gradient-to-r from-white via-white to-green-300 bg-clip-text text-transparent">
-              👋 Hello, I’m Zakaria
+              👋 Hello, I’m Zakarie
             </span>
           </h1>
 
@@ -33,18 +34,18 @@ const Home = () => {
           </p>
 
           <div className="mt-6 flex items-center gap-3">
-            <a
-              href="/projects"
+            <Link
+              to="/projects"
               className="rounded-xl bg-green-600 px-5 py-2.5 font-medium text-white transition hover:bg-green-500"
             >
               View Projects
-            </a>
-            <a
-              href="/contact"
+            </Link>
+            <Link
+              to="/contact"
               className="rounded-xl border border-slate-600 px-5 py-2.5 font-medium text-slate-200 transition hover:border-slate-400 hover:text-white"
             >
               Contact Me
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -57,7 +58,7 @@ const Home = () => {
           <div className="relative">
             <img
               src={profile}
-              alt="Zakaria profile"
+              alt="Zakarie profile"
               className="h-56 w-56 rounded-full object-cover shadow-xl ring-4 ring-green-400 md:h-72 md:w-72"
             />
             {/* badge */}

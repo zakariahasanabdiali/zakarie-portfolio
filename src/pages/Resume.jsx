@@ -82,7 +82,7 @@ const Resume = () => (
             rel="noreferrer"
             className="hover:underline"
           >
-            Zakaria Hasan Abdi Ali
+            Zakarie Hasan Abdi Ali
           </a>
         </InfoCard>
       </div>

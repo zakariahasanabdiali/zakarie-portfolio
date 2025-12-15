@@ -1,19 +1,40 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FaEnvelope, FaGithub, FaLinkedin, FaTwitter, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Contact = () => {
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
   // Simple mailto fallback (replace with Formspree action to post)
+  const formFields = useMemo(
+    () => ({
+      name: { label: 'Name', type: 'text', required: true, placeholder: 'Your name' },
+      email: { label: 'Email', type: 'email', required: true, placeholder: 'you@example.com' },
+      message: { label: 'Message', type: 'textarea', required: true, placeholder: 'How can I help?' },
+    }),
+    []
+  );
+
   const onSubmit = (e) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const name = fd.get('name');
-    const email = fd.get('email');
-    const message = fd.get('message');
+    const name = fd.get('name')?.trim();
+    const email = fd.get('email')?.trim();
+    const message = fd.get('message')?.trim();
+
+    setError('');
+    if (!name || !email || !message) {
+      setError('Please fill in all fields.');
+      return;
+    }
+    const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+    if (!emailOk) {
+      setError('Please enter a valid email address.');
+      return;
+    }
 
     setSending(true);
-    // mailto fallback
+    // mailto fallback; replace with Formspree/EmailJS endpoint when ready.
     window.location.href = `mailto:zakihasanabdi443@gmail.com?subject=Portfolio Inquiry from ${encodeURIComponent(
       name || 'Visitor'
     )}&body=${encodeURIComponent(`From: ${email}\n\n${message}`)}`;
@@ -85,38 +106,38 @@ const Contact = () => {
           {/* For Formspree: replace onSubmit with action + method="POST" and remove handler
               <form action="https://formspree.io/f/your-id" method="POST"> */}
           <form onSubmit={onSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm mb-1">Name</label>
-              <input
-                name="name"
-                type="text"
-                required
-                className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
-                placeholder="Your name"
-              />
-            </div>
+            {Object.entries(formFields).map(([name, config]) => (
+              <div key={name}>
+                <label className="block text-sm mb-1" htmlFor={name}>
+                  {config.label}
+                </label>
+                {config.type === 'textarea' ? (
+                  <textarea
+                    id={name}
+                    name={name}
+                    rows="5"
+                    required={config.required}
+                    className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+                    placeholder={config.placeholder}
+                  />
+                ) : (
+                  <input
+                    id={name}
+                    name={name}
+                    type={config.type}
+                    required={config.required}
+                    className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+                    placeholder={config.placeholder}
+                  />
+                )}
+              </div>
+            ))}
 
-            <div>
-              <label className="block text-sm mb-1">Email</label>
-              <input
-                name="email"
-                type="email"
-                required
-                className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
-                placeholder="you@example.com"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm mb-1">Message</label>
-              <textarea
-                name="message"
-                rows="5"
-                required
-                className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
-                placeholder="How can I help?"
-              />
-            </div>
+            {error ? (
+              <p className="text-sm text-red-400" role="alert">
+                {error}
+              </p>
+            ) : null}
 
             <button
               type="submit"
@@ -125,10 +146,10 @@ const Contact = () => {
             >
               {sending ? 'Sending…' : 'Send Message'}
             </button>
+            <p className="text-xs text-slate-500">
+              Tip: Swap the mailto fallback with a Formspree/EmailJS endpoint for frictionless submissions.
+            </p>
           </form>
-
-          {/* mini note for Formspree */}
-         
         </div>
       </div>
     </section>
