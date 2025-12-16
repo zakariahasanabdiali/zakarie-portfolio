@@ -151,9 +151,7 @@ const Contact = () => {
             >
               {sending ? 'Sending…' : 'Send Message'}
             </button>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Tip: Swap the mailto fallback with a Formspree/EmailJS endpoint for frictionless submissions.
-            </p>
+            
           </form>
         </div>
       </div>
