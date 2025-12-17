@@ -15,7 +15,7 @@ const certificates = [
   {
     title: 'CS50x: Introduction to Computer Science',
     issuer: 'HarvardX / edX',
-    date: 'Completed',
+    date: 'Completed ',
     file: cs50xImg,
   },
   {
