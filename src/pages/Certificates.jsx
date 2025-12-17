@@ -8,7 +8,7 @@ import aiImg from '../../certificate/understanding prompt engineering.jpg';
 const certificates = [
   {
     title: 'Understanding Prompt Engineering',
-    issuer: 'datacamp',
+    issuer: 'Datacamp',
     date: 'Completed',
     file: aiImg,
   },
