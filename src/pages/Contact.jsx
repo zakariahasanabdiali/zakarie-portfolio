@@ -42,7 +42,7 @@ const Contact = () => {
 
     emailjs.send(SERVICE_ID, TEMPLATE_ID, { name, email, message }, PUBLIC_KEY)
       .then(() => {
-        setSuccess('Message sent successfully!');
+        setSuccess('Message sent successfully');
         e.target.reset();
       })
       .catch(() => setError('Failed to send message. Try again later.'))
