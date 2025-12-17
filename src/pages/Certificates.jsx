@@ -3,7 +3,7 @@ import { FaCertificate, FaExternalLinkAlt } from 'react-icons/fa';
 import cs50xImg from '../../certificate/CS50x.jpg';
 import ibmImg from '../../certificate/IBM.jpg';
 import lfxImg from '../../certificate/LinuxFoundationX.jpg';
-import aiImg from '../../certificate/understanding-prompt-engineering.jpg';
+import aiImg from '../../certificate/understanding.jpg';
 
 const certificates = [
   {
