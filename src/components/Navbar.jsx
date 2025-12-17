@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ThemeToggle from './ThemeToggle';
 
 const scrollToId = (id) => {
@@ -14,10 +14,9 @@ const NavLink = ({ to, label, active, onClick }) => (
   <a
     href={to}
     onClick={onClick}
-    className={`block w-full text-center px-4 py-2
-      ${active ? 'text-emerald-500 font-semibold' : 'text-slate-700 dark:text-slate-300'}
-      hover:text-emerald-500 dark:hover:text-emerald-300
-      transition-colors`}
+    className={`block px-4 py-2 rounded-md
+      ${active ? 'text-emerald-500 font-semibold bg-emerald-100 dark:bg-emerald-900/30' : 'text-slate-700 dark:text-slate-300'}
+      hover:text-emerald-500 dark:hover:text-emerald-300 transition-all`}
   >
     {label}
   </a>
@@ -26,12 +25,7 @@ const NavLink = ({ to, label, active, onClick }) => (
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('#home');
-
-  const handleLinkClick = (to) => {
-    scrollToId(to.replace('#', ''));
-    setActiveLink(to);
-    setMenuOpen(false);
-  };
+  const sectionRefs = useRef({});
 
   const links = [
     { to: '#home', label: 'Home' },
@@ -42,6 +36,12 @@ const Navbar = () => {
     { to: '#contact', label: 'Contact' },
   ];
 
+  const handleLinkClick = (to) => {
+    scrollToId(to.replace('#', ''));
+    setActiveLink(to);
+    setMenuOpen(false);
+  };
+
   // ESC key close
   useEffect(() => {
     const handleEsc = (e) => {
@@ -49,6 +49,35 @@ const Navbar = () => {
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
+  // Scroll Spy
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px', // center detection
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveLink(`#${entry.target.id}`);
+        }
+      });
+    }, observerOptions);
+
+    links.forEach((link) => {
+      const section = document.getElementById(link.to.replace('#', ''));
+      if (section) {
+        sectionRefs.current[link.to] = section;
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      Object.values(sectionRefs.current).forEach((section) => observer.unobserve(section));
+    };
   }, []);
 
   return (
@@ -102,7 +131,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[999] bg-black/70 backdrop-blur-md sm:hidden flex justify-center items-start">
+        <div className="fixed inset-0 z-[999] bg-black/70 backdrop-blur-xl sm:hidden flex justify-center items-start">
           <div
             className="mt-20 bg-white dark:bg-slate-950 rounded-xl p-8 w-full max-w-xs flex flex-col gap-4 items-stretch
             animate-slideFromTop max-h-[80vh] overflow-y-auto shadow-xl"
