@@ -19,7 +19,7 @@ const certificates = [
     file: cs50xImg,
   },
   {
-    title: 'IBM AI0101EN: Introduction to AI',
+    title: 'IBM AI0101EN: Introduction to AI ',
     issuer: 'IBM / edX',
     date: 'Completed',
     file: ibmImg,
