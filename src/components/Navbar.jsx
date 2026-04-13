@@ -1,174 +1,95 @@
-import React, { useState, useEffect, useRef } from 'react';
-import ThemeToggle from './ThemeToggle';
-
-const scrollToId = (id) => {
-  const el = document.getElementById(id);
-  if (el) {
-    const yOffset = -80;
-    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  }
-};
-
-const NavLink = ({ to, label, active, onClick }) => (
-  <a
-    href={to}
-    onClick={onClick}
-    className={`block px-4 py-2 rounded-md
-      ${active ? 'text-emerald-500 font-semibold bg-emerald-100 dark:bg-emerald-900/30' : 'text-slate-700 dark:text-slate-300'}
-      hover:text-emerald-500 dark:hover:text-emerald-300 transition-all`}
-  >
-    {label}
-  </a>
-);
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
+import { HiMenuAlt3, HiX } from "react-icons/hi"; 
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('#home');
-  const sectionRefs = useRef({});
+  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const links = [
-    { to: '#home', label: 'Home' },
-    { to: '#about', label: 'About' },
-    { to: '#projects', label: 'Projects' },
-    { to: '#certificates', label: 'Certificates' },
-    { to: '#resume', label: 'Resume' },
-    { to: '#contact', label: 'Contact' },
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Home", id: "home" },
+    { name: "About", id: "about" },
+    { name: "Projects", id: "projects" },
+    { name: "Certificates", id: "certificates" },
+    { name: "Resume", id: "resume" },
+    { name: "Contact", id: "contact" },
   ];
 
-  const handleLinkClick = (to) => {
-    scrollToId(to.replace('#', ''));
-    setActiveLink(to);
-    setMenuOpen(false);
-  };
-
-  // ESC key close
-  useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === 'Escape') setMenuOpen(false);
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
-
-  // Scroll Spy
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px', // center detection
-      threshold: 0,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveLink(`#${entry.target.id}`);
-        }
-      });
-    }, observerOptions);
-
-    links.forEach((link) => {
-      const section = document.getElementById(link.to.replace('#', ''));
-      if (section) {
-        sectionRefs.current[link.to] = section;
-        observer.observe(section);
-      }
-    });
-
-    return () => {
-      Object.values(sectionRefs.current).forEach((section) => observer.unobserve(section));
-    };
-  }, []);
-
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-900 px-4 sm:px-6 py-4 shadow-lg">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
-
-        {/* Logo */}
-        <a
-          href="#home"
-          onClick={(e) => {
-            e.preventDefault();
-            handleLinkClick('#home');
-          }}
-          className="flex items-center gap-2"
-        >
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-green-400 via-emerald-500 to-cyan-400 text-slate-950 font-black flex items-center justify-center">
-            Z
-          </div>
-          <div className="flex flex-col leading-tight">
-            <span className="text-lg font-bold bg-gradient-to-r from-slate-900 via-emerald-600 to-cyan-500 bg-clip-text text-transparent dark:from-white dark:via-green-200 dark:to-cyan-200">
-              Zakarie
-            </span>
-            <span className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-              Portfolio
-            </span>
-          </div>
-        </a>
+    <div className="fixed top-0 inset-x-0 z-[100] flex justify-center px-6 py-6 pointer-events-none">
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className={`w-full max-w-5xl flex items-center justify-between px-6 py-3 rounded-2xl transition-all duration-500 pointer-events-auto ${
+          scrolled ? "glass shadow-2xl py-4" : "bg-transparent"
+        }`}
+      >
+        {/* Logo - text-slate-900 (Light) iyo dark:text-white (Dark) */}
+        <div className="font-black text-2xl tracking-tighter flex items-center gap-2 text-slate-900 dark:text-white">
+          <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-[#030712] text-sm">Z</div>
+          <span className="hidden sm:block">ZAKARIE</span>
+        </div>
 
         {/* Desktop Menu */}
-        <div className="hidden sm:flex items-center gap-4 text-sm font-medium">
-          {links.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              label={link.label}
-              active={activeLink === link.to}
-              onClick={() => handleLinkClick(link.to)}
-            />
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className="text-[13px] font-bold uppercase tracking-widest text-slate-900 dark:text-white opacity-60 hover:opacity-100 hover:text-emerald-500 dark:hover:text-emerald-400 transition-all"
+            >
+              {link.name}
+            </a>
           ))}
           <ThemeToggle />
         </div>
 
-        {/* Hamburger */}
-        <button
-          className="sm:hidden text-2xl font-bold"
-          onClick={() => setMenuOpen(true)}
-        >
-          ☰
+        {/* Mobile Toggle Button */}
+        <button className="md:hidden text-emerald-500" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <HiX size={28} /> : <HiMenuAlt3 size={28} />}
         </button>
-      </div>
+      </motion.nav>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-[999] bg-black/70 backdrop-blur-xl sm:hidden flex justify-center items-start">
-          <div
-            className="mt-20 bg-white dark:bg-slate-950 rounded-xl p-8 w-full max-w-xs flex flex-col gap-4 items-stretch
-            animate-slideFromTop max-h-[80vh] overflow-y-auto shadow-xl"
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            // Background isbedelaya (White in Light, Dark in Dark)
+            className="fixed inset-0 bg-white/95 dark:bg-[#030712]/95 backdrop-blur-2xl z-[110] flex flex-col items-center justify-center gap-8 md:hidden"
           >
-            {links.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                label={link.label}
-                active={activeLink === link.to}
-                onClick={() => handleLinkClick(link.to)}
-              />
+            <button onClick={() => setIsOpen(false)} className="absolute top-10 right-10 text-emerald-500">
+              <HiX size={35} />
+            </button>
+            
+            {navLinks.map((link) => (
+              <a 
+                key={link.id} 
+                href={`#${link.id}`} 
+                onClick={() => setIsOpen(false)}
+                // Mobile links text color
+                className="text-4xl font-black uppercase tracking-tighter text-slate-900 dark:text-white hover:text-emerald-500 transition-colors"
+              >
+                {link.name}
+              </a>
             ))}
-            <ThemeToggle />
-          </div>
-
-          {/* Close button */}
-          <button
-            className="absolute top-6 right-6 text-2xl font-bold text-white"
-            onClick={() => setMenuOpen(false)}
-          >
-            ✖
-          </button>
-        </div>
-      )}
-
-      {/* Slide from top animation */}
-      <style>{`
-        @keyframes slideFromTop {
-          0% { transform: translateY(-50px); opacity: 0; }
-          100% { transform: translateY(0); opacity: 1; }
-        }
-        .animate-slideFromTop {
-          animation: slideFromTop 0.3s ease-out forwards;
-        }
-      `}</style>
-    </nav>
+            
+            <div className="mt-4">
+              <ThemeToggle />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 

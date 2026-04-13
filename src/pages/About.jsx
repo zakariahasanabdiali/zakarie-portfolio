@@ -1,63 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { FaCode, FaPython, FaRobot, FaDatabase, FaMicrophone, FaTools } from 'react-icons/fa';
 
 const About = () => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 50);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
-    <section id="about" className="relative overflow-hidden px-5 sm:px-6 py-16 scroll-mt-24 bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
-      {/* Animated background blobs */}
-      <div className="pointer-events-none absolute -left-24 -top-20 h-56 w-56 rounded-full bg-emerald-300/25 blur-3xl animate-blob dark:bg-emerald-500/15" />
-      <div className="pointer-events-none absolute right-10 top-1/3 h-56 w-56 rounded-full bg-cyan-300/25 blur-3xl animate-blob animation-delay-2000 dark:bg-cyan-500/15" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-green-200/20 blur-3xl animate-blob animation-delay-4000 dark:bg-green-500/10" />
-
-      <div className="relative max-w-6xl mx-auto">
-        {/* Heading */}
-        <div
-          className={`text-center transition-all duration-700 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-slate-900 via-emerald-600 to-cyan-500 bg-clip-text text-transparent dark:from-white dark:via-green-200 dark:to-cyan-200">
-            About Me
+    <section id="about" className="relative py-24 px-6 overflow-hidden transition-colors duration-500">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="text-center mb-16">
+          {/* Cinwaanka oo isbedelaya */}
+          <h2 className="text-4xl md:text-5xl font-black mb-6 uppercase tracking-tighter text-slate-900 dark:text-white">
+            ABOUT <span className="gradient-text">ME</span>
           </h2>
-          <p className="max-w-3xl mx-auto text-slate-600 leading-relaxed dark:text-slate-300">
-            I’m a recent graduate with a <strong>BSc in Computer & Information Sciences</strong> from Zam Zam University (2025).
-            My passion lies in creating practical AI solutions for Somali speakers — including
-            Automatic Speech Recognition (ASR), Text-to-Speech (TTS), and intelligent chatbots — delivered as clean, scalable web services.
+          {/* Qoraalka hordhaca oo isbedelaya */}
+          <p className="max-w-3xl mx-auto text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+            I’m a recent graduate with a <strong className="text-slate-900 dark:text-white font-bold">BSc in Computer Sciences</strong> from Zam Zam University.
+            My passion is creating AI solutions for Somali speakers — from speech recognition to LLMs.
           </p>
         </div>
 
-        {/* Skills Section */}
-        <div
-          className={`mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-700 delay-100 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <SkillCard icon={<FaCode />} title="Web Development" details="HTML, CSS, JavaScript, React" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <SkillCard icon={<FaCode />} title="Web Development" details="React, Tailwind, Next.js" />
           <SkillCard icon={<FaPython />} title="Python Frameworks" details="FastAPI, Flask, Django" />
-          <SkillCard icon={<FaRobot />} title="AI & ML" details="Transformers, PyTorch, TensorFlow" />
-          <SkillCard icon={<FaDatabase />} title="Data Science" details="Pandas, NumPy, Matplotlib" />
+          <SkillCard icon={<FaRobot />} title="AI & ML" details="Transformers, PyTorch, LLMs" />
+          <SkillCard icon={<FaDatabase />} title="Data Science" details="Pandas, NumPy, SQL" />
           <SkillCard icon={<FaMicrophone />} title="Speech Tech" details="Wav2Vec2, XTTS v2" />
-          <SkillCard icon={<FaTools />} title="Tools" details="Git, GitHub, VS Code, Google Colab" />
-        </div>
-
-        {/* Goals */}
-        <div
-          className={`mt-16 transition-all duration-700 delay-200 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <h3 className="text-2xl font-semibold mb-4 text-center">🎯 My Goals</h3>
-          <ul className="max-w-3xl mx-auto list-disc pl-6 text-slate-600 space-y-2 dark:text-slate-300">
-            <li>✅ Leverage my Computer Science degree to build impactful solutions</li>
-            <li>🔍 Secure a remote AI/IT internship (paid or unpaid)</li>
-            <li>🌍 Continue contributing to the Somali AI & tech ecosystem</li>
-          </ul>
+          <SkillCard icon={<FaTools />} title="Tools" details="Git, Docker, VS Code" />
         </div>
       </div>
     </section>
@@ -65,11 +32,17 @@ const About = () => {
 };
 
 const SkillCard = ({ icon, title, details }) => (
-  <div className="bg-white/80 p-6 rounded-xl shadow-lg border border-slate-200 hover:border-emerald-400 transition dark:bg-slate-900 dark:border-slate-800">
-    <div className="text-emerald-500 text-3xl mb-4">{icon}</div>
-    <h4 className="text-lg font-bold mb-2">{title}</h4>
-    <p className="text-slate-600 text-sm dark:text-slate-300">{details}</p>
-  </div>
+  <motion.div 
+    whileHover={{ y: -5 }}
+    // Border-ku hadda waa slate-200 marka light mode la jiro si uu u muuqdo
+    className="glass p-8 rounded-[2rem] border border-slate-200 dark:border-white/5 hover:border-emerald-500/30 transition-all group"
+  >
+    <div className="text-emerald-500 text-4xl mb-6 group-hover:scale-110 transition-transform">{icon}</div>
+    {/* Skill Title */}
+    <h4 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">{title}</h4>
+    {/* Skill Details */}
+    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{details}</p>
+  </motion.div>
 );
 
 export default About;
